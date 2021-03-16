@@ -48,7 +48,7 @@ namespace Maze3D
         public void Run()
         {
             Init();
-            while (IsEndGame() == GameState.InProgress)
+            while (!IsEndGame())
             {
                 Draw();
                 do Input();
@@ -574,7 +574,13 @@ namespace Maze3D
         }
         #endregion
 
-        private GameState IsEndGame()
+        private bool IsEndGame()
+        {
+            gameState = GetGameState();
+            return gameState != GameState.InProgress;
+        }
+
+        private GameState GetGameState()
         {
             if (maze[maze.PlayerVector] == maze[maze.FinishVector] && user.HasKey)
             {
